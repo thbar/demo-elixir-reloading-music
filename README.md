@@ -1,2 +1,5 @@
-# demo-elixir-reloading-music
-Demonstrating Elixir code reloading ability (with music events generation)
+```
+brew install portmidi
+mix deps.get
+mix run --no-halt reloading.exs
+```
