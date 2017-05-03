@@ -26,7 +26,12 @@ defmodule Midi do
     
     play_notes(state.device, current_tick)
     
-    {:noreply, %{state | current_tick: current_tick, tick_period: 50}}
+    {:noreply, %{state | current_tick: current_tick}}
+  end
+
+  def handle_info({:note_off, note}, state) do
+    PortMidi.write(state.device, {0x90, note, 0})
+    {:noreply, state}
   end
   
   def show_visual_feedback(current_tick) do
@@ -40,12 +45,9 @@ defmodule Midi do
   
   def play_notes(device, current_tick) do
     if rem(current_tick, 16) == 0 do
-      # Play a note with pitch 0x50 and volume 70
-      PortMidi.write(device, {0x90, 0x50, 70})
-    end
-    if rem(current_tick, 16) == 8 do
-      # Play the same note with volume 0 (note off)
-      PortMidi.write(device, {0x90, 0x50, 0})
+      note = 0x54
+      PortMidi.write(device, {0x90, note, 70})
+      Process.send_after(:midi, {:note_off, note}, 50 * 2)
     end
   end
 end
