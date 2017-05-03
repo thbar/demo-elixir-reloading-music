@@ -3,7 +3,7 @@ feature, together with MIDI events generation.
 
 In short:
 
-* `reloading.exs` monitors the file system and hot-reload `music.exs`
+* `reloading.exs` monitors the file system and hot-reloads `music.exs`
 * `music.exs`:
   * relies on `GenServer` to ensure the "midi player" will keep state between code reloads
   * creates a "tick" every 50 milliseconds
