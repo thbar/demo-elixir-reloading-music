@@ -1,6 +1,10 @@
 The code in this repository demonstrates how to use Elixir "hot-reloading"
 feature, together with MIDI events generation.
 
+Youtube link:
+
+* https://www.youtube.com/watch?v=_VgcUatTilU&feature=youtu.be&t=2m2s
+
 In short:
 
 * `reloading.exs` monitors the file system and hot-reloads `music.exs`
