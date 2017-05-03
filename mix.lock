@@ -1,0 +1,3 @@
+%{"apex": {:hex, :apex, "1.0.0", "abf230314d35ca4c48a902f693247f190ad42fc14862b9c4f7dbb7077b21c20a", [:mix], []},
+  "exfswatch": {:hex, :exfswatch, "0.4.1", "008db817f6096eec69d17c7ca562c572fb4409728a09f465dea7e31190fb983c", [:mix], []},
+  "portmidi": {:hex, :portmidi, "5.1.1", "7b41e69c5d6364d143dc3663080750127fc0497d2bbe2d1690b7703d7e639482", [:make, :mix], []}}
