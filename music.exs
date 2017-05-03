@@ -21,7 +21,11 @@ defmodule Midi do
     # Immediately reschedule the next tick to reduce drift
     Process.send_after(:midi, {:tick}, state.tick_period)
     current_tick = Map.fetch!(state, :current_tick) + 1
+    
     show_visual_feedback(current_tick)
+    
+    play_notes(state.device, current_tick)
+    
     {:noreply, %{state | current_tick: current_tick, tick_period: 50}}
   end
   
@@ -30,7 +34,18 @@ defmodule Midi do
       IO.write IO.ANSI.clear <> IO.ANSI.home
     end
     if rem(current_tick, 8) == 0 do
-      IO.write IO.ANSI.yellow <> to_string(1 + round(rem(current_tick, 64) / 8)) <> IO.ANSI.default_color
+      IO.write IO.ANSI.red <> to_string(1 + round(rem(current_tick, 64) / 8)) <> IO.ANSI.default_color
+    end
+  end
+  
+  def play_notes(device, current_tick) do
+    if rem(current_tick, 16) == 0 do
+      # Play a note with pitch 0x50 and volume 70
+      PortMidi.write(device, {0x90, 0x50, 70})
+    end
+    if rem(current_tick, 16) == 8 do
+      # Play the same note with volume 0 (note off)
+      PortMidi.write(device, {0x90, 0x50, 0})
     end
   end
 end
