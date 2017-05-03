@@ -39,14 +39,23 @@ defmodule Midi do
       IO.write IO.ANSI.clear <> IO.ANSI.home
     end
     if rem(current_tick, 8) == 0 do
-      IO.write IO.ANSI.red <> to_string(1 + round(rem(current_tick, 64) / 8)) <> IO.ANSI.default_color
+      IO.write IO.ANSI.yellow <> to_string(1 + round(rem(current_tick, 64) / 8)) <> IO.ANSI.default_color
     end
   end
   
   def play_notes(device, current_tick) do
-    if rem(current_tick, 16) == 0 do
-      note = 0x54
-      PortMidi.write(device, {0x90, note, 70})
+    notes = [0x54]
+    delay = 16
+    # notes = [0x54, 0x57, 0x5B, 0x60]
+    # delay = 4
+    volume = 00
+    increase = 0
+    
+    notes = notes ++ Enum.reverse(notes)
+    if rem(current_tick, delay) == 0 do
+      index = rem(div(current_tick, delay), Enum.count(notes))
+      note = Enum.at(notes, index) + increase
+      PortMidi.write(device, {0x90, note, volume})
       Process.send_after(:midi, {:note_off, note}, 50 * 2)
     end
   end
