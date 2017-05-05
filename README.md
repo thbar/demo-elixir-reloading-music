@@ -5,6 +5,10 @@ Youtube link:
 
 * https://www.youtube.com/watch?v=_VgcUatTilU&feature=youtu.be&t=2m2s
 
+Slides:
+
+* https://speakerdeck.com/thbar/elixir-hot-reloading-and-midi-events-generation
+
 In short:
 
 * `reloading.exs` monitors the file system and hot-reloads `music.exs`
