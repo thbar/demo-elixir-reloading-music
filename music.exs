@@ -1,7 +1,11 @@
 defmodule Midi do
   use GenServer
   require Logger
-  
+
+  def init(args) do
+    {:ok, args}
+  end
+
   def start_link do
     # Logger.info "Available devices: #{inspect PortMidi.devices}"
     {:ok, device} = PortMidi.open(:output, "Renoise MIDI-In")
